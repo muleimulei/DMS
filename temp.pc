@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+EXEC SQL BEGIN DECLARE SECTION;
+char username[20];
+char password[20];
+char last_name[25];
+EXEC SQL END DECLARE SECTION;
+EXEC SQL INCLUDE sqlca;
+void sqlerror();
+int main()
+{
+	EXEC SQL WHENEVER SQLERROR DO sqlerror();
+	strcpy(username,"system");
+	strcpy(password,"open123");
+	EXEC SQL CONNECT :username IDENTIFIED BY :password;
+	EXEC SQL select LAST_NAME into :last_name from S_EMP where id=2;
+	printf("\nID=2,last_name=%s\n",last_name);
+	return 0;
+}
+void sqlerror()
+{
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	printf("\n----oracle error detected:\n");
+	printf("%.70s\n",sqlca.sqlerrm.sqlerrmc);
+	EXEC SQL ROLLBACK WORK RELEASE;
+	exit(1);
+}
