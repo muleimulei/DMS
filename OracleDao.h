@@ -12,7 +12,7 @@ public:
 		// if(!flag){
 		// 	printf("connect fail");
 		// }
-		printf("lianjie\n");
+		printf("username: %s  userPasswd: %s\n",user,passwd);
 	}
 
 	void insert(MLogRec const &log){
@@ -23,7 +23,7 @@ public:
 		//  if(NULL != pRst){
 		//  	printf("insert success");
 		//  }
-		printf("insert\n");
+		printf("insert success %s %s %d %d %d \n",log.logname,log.userip,log.logintime, log.logouttime,log.duration);
 	}
 };
 

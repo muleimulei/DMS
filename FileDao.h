@@ -2,7 +2,7 @@
 #ifndef _FileDao_H__
 #define _FileDao_H__
 
-#include<ofstream>
+#include <ofstream>
 #include "LogDao.h"
 #include "MLogRec.h"
 

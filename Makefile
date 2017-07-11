@@ -1,5 +1,5 @@
-server:main.o
-	g++  main.o -lpthread -o server
+server:main.o OracleDao.h
+	g++  main.o  -lpthread clntsh  -o server
 client:clientmain.o
 	g++ clientmain.o -o client
 main.o:main.cpp
@@ -8,5 +8,9 @@ clientmain.o:clientmain.cpp
 	g++ -c clientmain.cpp
 
 
+OracleDao.h:OracleDao.pc
+	proc OracleDao.pc oname=OracleDao.h code=cpp parse=none
+
+
 clean:
-	rm *.o
+	rm *.o server client

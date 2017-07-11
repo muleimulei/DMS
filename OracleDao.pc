@@ -1,0 +1,60 @@
+#ifndef __OracleDao_H__
+#define __OracleDao_H__
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "MLogRec.h"
+#include "LogDao.h"
+
+EXEC SQL BEGIN DECLARE SECTION;
+char last_name[25];
+char username[20];
+char password[20];
+char logname[32];
+char userip[32];
+int logintime;
+int outtime;
+int duration;
+int  useIndex;
+EXEC SQL END DECLARE SECTION;
+EXEC SQL INCLUDE sqlca;
+void sqlerror();
+
+class OracleDao:public LogDao{
+public:
+	OracleDao (const char * user, const char *passwd){
+		strcpy(username,user);
+		strcpy(password,passwd);
+		EXEC SQL WHENEVER SQLERROR DO sqlerror();
+
+		EXEC SQL CONNECT :username IDENTIFIED BY :password;
+		if(sqlca.sqlcode)
+		{
+			printf("failed to connect db\n");
+		}
+		printf("lianjie\n");
+	}
+
+	void insert(MLogRec const &log){
+		static int iIndex = 0;
+		useIndex = iIndex;
+		strcpy(logname,log.logname);
+		strcpy(userip,log.userip);
+		logintime = log.logintime;
+		outtime = log.logouttime;
+		duration = log.duration;
+		EXEC SQL insert into logfile values(:useIndex,:logname,:userip,:logintime,:outtime,:duration);
+		exec sql commit;
+		iIndex ++;
+	}
+};
+void sqlerror()
+{
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	printf("\n----oracle error detected:\n");
+	printf("%.70s\n",sqlca.sqlerrm.sqlerrmc);
+	EXEC SQL ROLLBACK WORK RELEASE;
+	exit(1);
+}
+#endif

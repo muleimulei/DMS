@@ -150,9 +150,6 @@ public:
 				ifs.read(tempLogRec.m_ip,ip_length);
 				tempLogRec.m_ip[ip_length] = 0;
 
-				
-				
-				
 				if(7 == tempLogRec.m_type) {
 					m_logins.push_back(tempLogRec);
 				} else if( 8 == tempLogRec.m_type) {
@@ -192,7 +189,7 @@ public:
 	 * 将未匹配的m_logins写入文件m_loginsFile
 	 */
 	void saveLoginsFile(){
-		FILE *f = fopen(m_failFile.c_str(),"a+");
+		FILE *f = fopen(m_failFile.c_str(),"w");
 		list<LogRec>::iterator begin;
 
 		for(begin = m_logins.begin();begin!=m_logins.end();begin++){

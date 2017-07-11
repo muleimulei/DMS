@@ -20,7 +20,6 @@ private:
 			MLogRec mlogrec;
 			g_logqueue >> mlogrec;
 			printf("%s %s    num: %d\n",mlogrec.logname,mlogrec.userip,num);
-
 			m_dao.insert(mlogrec);
 			num++;
 		}
