@@ -80,7 +80,7 @@ private:
 			MLogRec temp = *it;
 		    ret = send(m_sockfd, (void*)&temp, 
 		            sizeof(MLogRec), 0);
-		    if(-1 == ret)
+		    if(-1 == ret || ret!=sizeof(MLogRec))
 		    {
 		        printf("fail %s\n", strerror(errno));
 		        break;
@@ -93,7 +93,7 @@ private:
 	}
 	void saveFailFile(list<MLogRec> &logs) throw (SaveException){
 		printf("save fail data........%d\n",logs.size());
-		FILE *f = fopen(m_failFile.c_str(),"a+");
+		FILE *f = fopen(m_failFile.c_str(),"w+");
 		list<MLogRec>::iterator begin,end = logs.end();
 
 		for(begin = logs.begin();begin!=end;begin++){

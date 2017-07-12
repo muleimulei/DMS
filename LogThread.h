@@ -9,6 +9,7 @@ public:
     
     static void* task(void* arg){
         LogThread* logthread = (LogThread*)arg;
+        printf("LogThread:\t%p\n",logthread);
         logthread->run();
         delete logthread;
     }

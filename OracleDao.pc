@@ -7,6 +7,7 @@
 #include "MLogRec.h"
 #include "LogDao.h"
 
+
 EXEC SQL BEGIN DECLARE SECTION;
 char last_name[25];
 char username[20];
@@ -23,6 +24,7 @@ void sqlerror();
 
 class OracleDao:public LogDao{
 public:
+
 	OracleDao (const char * user, const char *passwd){
 		strcpy(username,user);
 		strcpy(password,passwd);

@@ -17,8 +17,6 @@
 #include <stdlib.h>
 using namespace std;
 
-class LogRec;
-class MLogRec;
 
 class LogReader{
 private:
@@ -189,7 +187,7 @@ public:
 	 * 将未匹配的m_logins写入文件m_loginsFile
 	 */
 	void saveLoginsFile(){
-		FILE *f = fopen(m_failFile.c_str(),"w");
+		FILE *f = fopen(m_loginsFile.c_str(),"w");
 		list<LogRec>::iterator begin;
 
 		for(begin = m_logins.begin();begin!=m_logins.end();begin++){

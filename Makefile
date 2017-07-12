@@ -1,4 +1,4 @@
-server:main.o OracleDao.h
+server:main.o #OracleDao.h
 	g++  main.o  -lpthread clntsh  -o server
 client:clientmain.o
 	g++ clientmain.o -o client

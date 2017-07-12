@@ -14,7 +14,7 @@ private:
 	pthread_cond_t m_notEmpty;
 public:
 	LogQueue &operator << (MLogRec const &log){
-	    printf("insert into.... \n");
+	    //printf("insert into.... \n");
 
         pthread_mutex_lock(&m_mtx);
         m_log.push_back(log);

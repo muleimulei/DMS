@@ -6,6 +6,8 @@
 #include "LogThread.h"
 #include "LogQueue.h"
 #include "MLogRec.h"
+// #include "FileDao.h"
+
 extern LogQueue g_logqueue;
 class StoreThread: public LogThread{
 private:
@@ -15,9 +17,11 @@ private:
 	 * 将数据插入到数据库
 	 */
 	void run(){
+		printf("here\n");
 		int num = 1;
 		while(1){
 			MLogRec mlogrec;
+			
 			g_logqueue >> mlogrec;
 			printf("%s %s    num: %d\n",mlogrec.logname,mlogrec.userip,num);
 			m_dao.insert(mlogrec);
@@ -27,7 +31,6 @@ private:
 public:
 	StoreThread(LogDao &dao):m_dao(dao){
 	}
-	
 };
 
 #endif

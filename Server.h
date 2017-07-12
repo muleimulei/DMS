@@ -4,7 +4,7 @@
 
 #include "ServerSocket.h"
 #include "StoreThread.h"
-
+#include "LogDao.h"
 class Server{
 private:
 	ServerSocket m_socket;
@@ -19,6 +19,7 @@ public:
 	 * 启动服务器端数据采集
 	 */
 	void dateMine(){
+		printf("StoreThread:\t%p\n",&m_thread);
 		m_thread.start();
 		m_socket.acceptClient();
 	}
