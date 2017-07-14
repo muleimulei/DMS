@@ -51,6 +51,8 @@ public:
 		iIndex ++;
 	}
 };
+
+//錯誤處理程序
 void sqlerror()
 {
 	EXEC SQL WHENEVER SQLERROR CONTINUE;
